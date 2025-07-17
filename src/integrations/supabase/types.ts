@@ -14,16 +14,107 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      gatepasses: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          department: string
+          exit_time: string
+          exited_at: string | null
+          gatepass_id: string
+          id: string
+          items_carried: string | null
+          reason: string
+          requester_id: string
+          requester_name: string
+          status: Database["public"]["Enums"]["gatepass_status"]
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          department: string
+          exit_time: string
+          exited_at?: string | null
+          gatepass_id: string
+          id?: string
+          items_carried?: string | null
+          reason: string
+          requester_id: string
+          requester_name: string
+          status?: Database["public"]["Enums"]["gatepass_status"]
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          department?: string
+          exit_time?: string
+          exited_at?: string | null
+          gatepass_id?: string
+          id?: string
+          items_carried?: string | null
+          reason?: string
+          requester_id?: string
+          requester_name?: string
+          status?: Database["public"]["Enums"]["gatepass_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          department: string
+          email: string
+          full_name: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          department: string
+          email: string
+          full_name: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          department?: string
+          email?: string
+          full_name?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_gatepass_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      get_user_role: {
+        Args: { user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "security_officer" | "staff"
+      gatepass_status: "pending" | "approved" | "rejected" | "issued" | "exited"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +241,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "security_officer", "staff"],
+      gatepass_status: ["pending", "approved", "rejected", "issued", "exited"],
+    },
   },
 } as const
