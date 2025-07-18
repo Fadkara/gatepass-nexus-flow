@@ -14,6 +14,192 @@ export type Database = {
   }
   public: {
     Tables: {
+      assets: {
+        Row: {
+          asset_id: string
+          asset_type: string
+          brand: string | null
+          created_at: string
+          current_location: string | null
+          id: string
+          model: string | null
+          purchase_date: string | null
+          serial_number: string
+          status: string | null
+          updated_at: string
+          warranty_expiry: string | null
+        }
+        Insert: {
+          asset_id: string
+          asset_type: string
+          brand?: string | null
+          created_at?: string
+          current_location?: string | null
+          id?: string
+          model?: string | null
+          purchase_date?: string | null
+          serial_number: string
+          status?: string | null
+          updated_at?: string
+          warranty_expiry?: string | null
+        }
+        Update: {
+          asset_id?: string
+          asset_type?: string
+          brand?: string | null
+          created_at?: string
+          current_location?: string | null
+          id?: string
+          model?: string | null
+          purchase_date?: string | null
+          serial_number?: string
+          status?: string | null
+          updated_at?: string
+          warranty_expiry?: string | null
+        }
+        Relationships: []
+      }
+      communications: {
+        Row: {
+          communication_type: string | null
+          created_at: string
+          id: string
+          is_read: boolean | null
+          message: string
+          priority: string | null
+          read_at: string | null
+          recipient_department: string | null
+          recipient_id: string | null
+          recipient_type: string | null
+          sender_id: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          communication_type?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message: string
+          priority?: string | null
+          read_at?: string | null
+          recipient_department?: string | null
+          recipient_id?: string | null
+          recipient_type?: string | null
+          sender_id: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          communication_type?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          priority?: string | null
+          read_at?: string | null
+          recipient_department?: string | null
+          recipient_id?: string | null
+          recipient_type?: string | null
+          sender_id?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      employee_assets: {
+        Row: {
+          asset_id: string
+          assigned_by: string | null
+          assigned_date: string
+          created_at: string
+          employee_id: string
+          id: string
+          is_active: boolean | null
+          notes: string | null
+          returned_date: string | null
+          updated_at: string
+        }
+        Insert: {
+          asset_id: string
+          assigned_by?: string | null
+          assigned_date?: string
+          created_at?: string
+          employee_id: string
+          id?: string
+          is_active?: boolean | null
+          notes?: string | null
+          returned_date?: string | null
+          updated_at?: string
+        }
+        Update: {
+          asset_id?: string
+          assigned_by?: string | null
+          assigned_date?: string
+          created_at?: string
+          employee_id?: string
+          id?: string
+          is_active?: boolean | null
+          notes?: string | null
+          returned_date?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_assets_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "assets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_assets_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employees: {
+        Row: {
+          created_at: string
+          department: string
+          employee_id: string
+          face_encoding: string | null
+          hire_date: string | null
+          id: string
+          is_active: boolean | null
+          position: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          department: string
+          employee_id: string
+          face_encoding?: string | null
+          hire_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          position?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          department?: string
+          employee_id?: string
+          face_encoding?: string | null
+          hire_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          position?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       gatepasses: {
         Row: {
           approved_at: string | null
@@ -119,12 +305,86 @@ export type Database = {
         }
         Relationships: []
       }
+      visitors: {
+        Row: {
+          check_in_time: string | null
+          check_out_time: string | null
+          company: string | null
+          created_at: string
+          email: string | null
+          expected_checkout: string | null
+          face_encoding: string | null
+          full_name: string
+          host_employee_id: string | null
+          id: string
+          phone: string | null
+          purpose_of_visit: string
+          status: string | null
+          updated_at: string
+          visitor_id: string
+        }
+        Insert: {
+          check_in_time?: string | null
+          check_out_time?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          expected_checkout?: string | null
+          face_encoding?: string | null
+          full_name: string
+          host_employee_id?: string | null
+          id?: string
+          phone?: string | null
+          purpose_of_visit: string
+          status?: string | null
+          updated_at?: string
+          visitor_id: string
+        }
+        Update: {
+          check_in_time?: string | null
+          check_out_time?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          expected_checkout?: string | null
+          face_encoding?: string | null
+          full_name?: string
+          host_employee_id?: string | null
+          id?: string
+          phone?: string | null
+          purpose_of_visit?: string
+          status?: string | null
+          updated_at?: string
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visitors_host_employee_id_fkey"
+            columns: ["host_employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      generate_asset_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      generate_employee_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       generate_gatepass_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      generate_visitor_id: {
         Args: Record<PropertyKey, never>
         Returns: string
       }
